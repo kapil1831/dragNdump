@@ -2,11 +2,14 @@ const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
 const { errorHandler } = require('./middleware/errorMiddleware');
-//const problems = require('./sample_problems');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const client = require("./db/conn");
+
+const connectDB = require('./db/conn');
+const { Record } = require('./models/recordModel');
+
+connectDB();
 
 
 //create instance of express
@@ -17,14 +20,11 @@ const app = express();
 app.use(express.json()); // built in body parser
 app.use(express.urlencoded({ extended: false }));// to handle url encoded data
 
-// const api = require('./routes/api/records');
-// const { get } = require('http');
-
 
 //middleware
 const fetch = (req, res, next) => {
     //console.log(req.path);
-    if (req.path === '/user') {
+    if (req.path === '/') {
         next();
     }
     else res.send("not found");
@@ -32,22 +32,18 @@ const fetch = (req, res, next) => {
 }
 
 //handlebar route
-app.get('/', fetch, async (req, res) => {
+app.get('/', async (req, res) => {
     // get data for diplaying either direct access to the database or use api;
     let problems = [];
 
-    //   let res =  get('/routes/api/records')
-    //   let data =res.body // data
-
     try {
-        await client.connect();
-        problems = await require('./db/dbops').readAllRecords(client, "db1", "dragNdump");
+        problems = await Record.find().lean();
     } catch (e) {
         console.log(e);
         res.status(400).send("Error fetching db1 records!");
-    } finally {
-        await client.close();
     }
+    console.log(problems);
+    problems.forEach((value) => { console.log(value.question) })
     res.render('index', { problems });
 });
 
@@ -73,8 +69,5 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5002;
 
 app.listen(PORT, () => {
-    // dbo.connectToServer(function (err) {
-    //     if (err) console.error(err);
-    // });
     console.log(`Server started at port ${PORT}`);
 });

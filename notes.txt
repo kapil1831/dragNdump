@@ -1,0 +1,62 @@
+// notes for mongooose, mongodb node.js driver 
+
+resources links :
+        - https://www.mongodb.com/developer/languages/javascript/mongoose-versus-nodejs-driver/#mongoose-schema-and-model
+
+** why mongoDB driver  enough??
+- The MongoDB Node.js driver does not have concepts of object data modeling or mapping.
+- The MongoDB Node.js driver works natively with your MongoDB database to give you the best
+  and most flexible development experience. 
+- It allows the database to do what it's best at while allowing your application
+  to focus on what it's best at, and that's probably not managing data models.
+
+
+- We simply write queries against the database and collection we wish to work with to accomplish the business goals.
+like 
+        db.collection('posts').insertOne({
+            title: 'Better Post!',
+            slug: 'a-better-post',
+            published: true,
+            author: 'Ado Kukic',
+            content: 'This is an even better post',
+            tags: ['featured'],
+        });
+
+-  MongoDB schema validation is more in line with the entire philosophy of MongoDB 
+where the focus is on a flexible design schema that is quickly and easily adaptable to your use cases.
+
+** mongooose:
+- Mongoose is a Node.js-based Object Data Modeling (ODM) library for MongoDB.
+- The problem that Mongoose aims to solve is allowing developers to enforce a specific schema at the application layer.
+- In addition to enforcing a schema, Mongoose also offers a variety of hooks, model validation, and other features aimed at making it easier to work with MongoDB.
+- With Mongoose, you would define a Schema object in your application code that maps to a collection in your MongoDB database.
+- The Schema object defines the structure of the documents in your collection. Then, you need to create a Model object out of the schema. 
+- The model is used to interact with the collection.
+
+** benifits of Mongoose ??
+- The benefit of using Mongoose is that we have a schema to work against in our application code and 
+an explicit relationship between our MongoDB documents and the Mongoose models within our application. 
+
+** downsides 
+- The downside is that we can only create blog posts and they have to follow the above defined schema. 
+If we change our Mongoose schema, we are changing the relationship completely, and if you're going
+ through rapid development, this can greatly slow you down.
+
+- The other downside is that this relationship between the schema and model only exists within the confines 
+of our Node.js application. Our MongoDB database is not aware of the relationship,
+it just inserts or retrieves data it is asked for without any sort of validation. In the event that
+we used a different programming language to interact with our database, all the constraints and models
+we defined in Mongoose would be worthless.
+
+** MongoDB Schema Validation ??
+- MongoDB Schema Validation makes it possible to easily enforce a schema against your MongoDB database, while maintaining a high degree of flexibility, giving you the best of both worlds.
+In the past, the only way to enforce a schema against a MongoDB collection was to do it at the application level using an ODM like Mongoose, but that posed significant challenges for developers.
+
+
+** why Schema required??
+- A huge benefit of using a NoSQL database like MongoDB is that you are not constrained to a rigid data model. 
+You can add or remove fields, nest data multiple layers deep, and have a truly flexible data model that meets
+your needs today and can adapt to your ever-changing needs tomorrow. But being too flexible can also be a
+challenge. If there is no consensus on what the data model should look like, and every document in a collection
+ contains vastly different fields, you're going to have a bad time.
+

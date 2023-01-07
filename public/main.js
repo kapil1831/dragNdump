@@ -23,7 +23,6 @@ show_entry_btn.addEventListener('click', (e) => {
     }
 });
 
-
 body.addEventListener('click', (e) => {
     e.preventDefault();
     var link_div = document.getElementById('div-link');

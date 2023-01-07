@@ -33,30 +33,27 @@
 </div>
 <div class="container mb-4" id="div-entries" style="display: none">
     <h4>Entries</h4>
-    <ul>
-        {{#each problems}}
-        <li class="list-group-item list-group-item-success">
-            <div class="container">
-                <div class="row justify-content-md-center">
-                    <div class="col">
-                        {{!-- {{this.id}} --}}
-                    </div>
-                    <div class="col-md-auto">
-                        <span class="border border-primary"><a href={{this.link}}>{{this.question}}</a></span>
-                    </div>
-                    <div class="col">
-                        Solution
-                    </div>
-                </div>
 
-            </div>
-        </li>
-        {{/each}}
-        {{!-- <li class="list-group-item list-group-item-success">
-            sample
-        </li> --}}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Question</th>
+                <th scope="col">Solution</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {{#each problems}}
+            <tr>
+                <th scope="row"> {{@index}}</th>
+                <td><a style="text-decoration: none;" href={{this.link}}>{{this.question}}</a></td>
+                <td>solution</td>
 
-    </ul>
+            </tr>
+
+            {{/each}}
+        </tbody>
+    </table>
 
 </div>
 <script src="main.js"></script>
