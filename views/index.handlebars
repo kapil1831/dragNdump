@@ -1,0 +1,64 @@
+<h1 class="text-center mb-3">Content</h1>
+<form action="/api/records" method="post" class="container mb-4">
+    <div class="form-group" id="div-ques">
+        <label for="question">
+            <h4> Question</h4>
+        </label>
+        <input type="text" name="question" class="form-control" placeholder="problem">
+    </div>
+    <div class="form-group" id="div-ques">
+        <label for="question_desc">
+            <h4>Question Description</h4>
+        </label>
+
+        <textarea name="question_desc" cols="30" rows="10" class="form-control"
+            placeholder="Type Question Description...."></textarea>
+    </div>
+    <div class="form-group" id="div-link" style="display:none">
+        <label for="link">
+            <h4> Link</h4>
+        </label>
+        <input type="text" name="link" class="form-control" placeholder="Link to problem">
+    </div>
+    <div class="form-group" id="div-solution" style="display:none" id>
+        <label for="solution">
+            <h4>Solution</h4>
+        </label>
+        <textarea name="solution" cols="30" rows="10" class="form-control" placeholder="Paste Solution...."></textarea>
+    </div>
+    <button type="submit" class="btn btn-light btn-block">submit</button>
+</form>
+<div class="container mb-4">
+    <button type="" id='btn-entry' class="btn btn-info ">Show Entries</button>
+</div>
+<div class="container mb-4" id="div-entries" style="display: none">
+    <h4>Entries</h4>
+    <ul>
+        {{#each problems}}
+        <li class="list-group-item list-group-item-success">
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col">
+                        {{!-- {{this.id}} --}}
+                    </div>
+                    <div class="col-md-auto">
+                        <span class="border border-primary"><a href={{this.link}}>{{this.question}}</a></span>
+                    </div>
+                    <div class="col">
+                        Solution
+                    </div>
+                </div>
+
+            </div>
+        </li>
+        {{/each}}
+        {{!-- <li class="list-group-item list-group-item-success">
+            sample
+        </li> --}}
+
+    </ul>
+
+</div>
+<script src="main.js"></script>
+
+<a href="/api/members" class="btn btn-light mt4">Visit API</a>
